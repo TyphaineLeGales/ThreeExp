@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <title>WebGL</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <link rel="stylesheet" href="assets/css/index.css">
+    </head>
+    <body>
+        <canvas id="app"></canvas>
+        <!-- These javascript files are not necessary for the production. It is for demo purpose -->
+        <script src="assets/js/dat.gui.min.js"></script>
+        <script src="assets/js/TweenLite.min.js"></script>
+
+        <!-- Required javascript files -->
+        <script src="assets/js/index.js"></script>
+        <script>
+var webglApi = window.webglApi; // a global variable for this homepage graphic 
+var canvas = document.getElementById('app');
+var time = +new Date() / 1000;
+var gui;
+var raf;
+
+if (webglApi.checkIsSupported()) {
+    webglApi.preInit({
+            canvas: canvas,
+        }, function (percent) {
+            if (percent == 1) {
+                init();
+            }
+        }
+    );
+    window.addEventListener('resize', onResize);
+    onResize();
+    loop();
+} else {
+    // No WebGL support here.
+}
+
+function init () {
+    webglApi.init({
+        canvas: canvas
+    });
+    initGUI();
+}
+
+function initGUI () {
+    var properties = webglApi.properties;
+    gui = new dat.GUI();
+
+}
+
+function onResize () {
+    // resize the web canvas to the screen size
+    webglApi.resize(window.innerWidth, window.innerHeight);
+}
+
+function loop () {
+    raf = requestAnimationFrame(loop);
+    render();
+}
+
+function render () {
+    var newTime = +new Date() / 1000;
+    var deltaTime = newTime - time;
+
+    // pass delta time in second into the api
+    webglApi.render(deltaTime);
+    time = newTime;
+}
+        </script>
+    </body>
+</html>
