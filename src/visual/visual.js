@@ -1,5 +1,6 @@
 const THREE = require('three');
 const glslify = require('glslify');
+const properties = require('../core/properties');
 
 exports.preInit = preInit;
 exports.init = init;
@@ -135,18 +136,43 @@ function init () {
     ]);
 
     let numBones = 3;
-    
-    let bones = [];
+    let boneArray
+    let boneMatrices = []; // uniform data
+    let bones = []; //value before multiplying by inverse bind matric
+
+    var bindPose = [];
+
+    // for(let i = 0; i<numBones; i++) {
+    //   boneMatrices.push(new Float32Array(boneArray.buffer, i * 3 * 9, 9));
+    //   bindPose.push(m4.identity());
+    //   bones.push(m4.identity()); 
+    // }
+
+    function computeMatrice(bone) {
+      let m = new THREE.Matrix3().identity();
+      m.set(
+        bone.position.x,
+        bone.position.y,
+        bone.position.z,
+        bone.rotation.x,
+        bone.rotation.y,
+        bone.rotation.Z,
+        bone.scale.x,
+        bone.scale.y,
+        bone.scale.z
+      )
+    }
+
 
     let armBufferGeo = new THREE.BufferGeometry();
-    armBufferGeo.addAttribute('position', new THREE.BufferAttribute( armTestVertices, 3));
-    armBufferGeo.addAttribute('bonesIndex', new THREE.BufferAttribute( boneIndices, 2));
-    armBufferGeo.addAttribute('boneWeights', new THREE.BufferAttribute( boneWeights, 2));
+    armBufferGeo.addAttribute('a_position', new THREE.BufferAttribute( armTestVertices, 3));
+    armBufferGeo.addAttribute('a_bonesIndex', new THREE.BufferAttribute( boneIndices, 2));
+    armBufferGeo.addAttribute('a_boneWeights', new THREE.BufferAttribute( boneWeights, 2));
 
 
     let shaderMaterial = new THREE.ShaderMaterial ({
         uniforms : {
-            u_bones : {value: bones}
+            u_bones : {value: boneMatrices}
         },
         vertexShader: glslify('./testSkinnedArm.vert'),
         fragmentShader: glslify('./testSkinnedArm.frag'),
