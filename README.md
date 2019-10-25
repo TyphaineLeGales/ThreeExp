@@ -1,4 +1,5 @@
-# Simple-ThreeJS-Site-Template
+# THREE JS Experiments
+one branch per try out
 
 #### THREE.JS version: `r108`
 
