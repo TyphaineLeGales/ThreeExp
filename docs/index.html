@@ -45,6 +45,21 @@ function init () {
 function initGUI () {
     var properties = webglApi.properties;
     gui = new dat.GUI();
+    var bonesGui = gui.addFolder('bones');
+    var bone0 = bonesGui.addFolder('bone0')
+    bone0.add(webglApi.properties, 'Bone0PositionX', 0,1);
+    bone0.add(webglApi.properties, 'Bone0PositionY', 0,1);
+    bone0.add(webglApi.properties, 'Bone0PositionZ', 0,1);
+    bone0.add(webglApi.properties, 'Bone0RotationX', 0,1);
+    bone0.add(webglApi.properties, 'Bone0RotationY', 0,1);
+    bone0.add(webglApi.properties, 'Bone0RotationZ', 0,1);
+    bone0.add(webglApi.properties, 'Bone0ScaleX', 0,1);
+    bone0.add(webglApi.properties, 'Bone0ScaleY', 0,1);
+    bone0.add(webglApi.properties, 'Bone0ScaleZ', 0,1);
+    // bonesGui.addFolder('bone1')
+    // bonesGui.addFolder('bone2')
+    // bonesGui.addFolder('bone3')
+    // bonesGui.open();
 
 }
 
