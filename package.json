@@ -8,7 +8,7 @@
     "quick-loader": "^0.1.9",
     "min-signal": "^0.0.6",
     "mout": "^1.1.0 ",
-    "three": "0.108.0"
+    "three": "0.125.0"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
