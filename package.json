@@ -7,7 +7,7 @@
   "dependencies": {
     "quick-loader": "^0.1.9",
     "min-signal": "^0.0.6",
-    "mout": "^1.1.0 ",
+    "mout": "^1.2.3",
     "three": "0.108.0"
   },
   "devDependencies": {
